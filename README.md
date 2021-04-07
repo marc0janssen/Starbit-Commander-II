@@ -7,4 +7,4 @@ year: 2021-04-07\
 version: 1.0\
 notes: Explosion code bored with permission from Derek Graham.\
 notes: (https://deejaygraham.github.io/2016/10/28/tiny-asteroids-for-microbit/) \
-notes: All other code is my own.\
+notes: All other code is my own.
