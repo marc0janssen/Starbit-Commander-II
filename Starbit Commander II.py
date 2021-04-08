@@ -36,15 +36,15 @@ class Game:
         self.score += self.scoreBonus
 
     def increaseDifficulty(self):
-        if self.score % 10 == 0:
+        if self.ticks % 10 == 0:
             self.frameRate = max(self.frameRate - 100, 400)
             self.scoreBonus += 1
 
-        if self.score % 15 == 0:
+        if self.ticks % 15 == 0:
             self.chanceSecondAstroid = max(self.chanceSecondAstroid - 2, 3)
             self.scoreBonus += 3
 
-        if self.score % 25 == 0:
+        if self.ticks % 25 == 0:
             self.rowOfAstroids = min(self.rowOfAstroids + 1, 5)
             self.scoreBonus += 5
 
@@ -71,6 +71,7 @@ class Game:
 
             astroidField.moveAstroids()
             astroidField.clearPassedAstroids()
+            self.increaseDifficulty()
 
 
 class Spaceship:
@@ -166,7 +167,6 @@ class AstroidField:
                 self.astroidField.pop(0)
                 del astroid
                 game.countScore()
-                game.increaseDifficulty()
 
     def hideAstroids(self):
         for astroid in self.astroidField:
