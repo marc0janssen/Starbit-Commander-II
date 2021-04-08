@@ -1,8 +1,8 @@
 # Name: Starbit Commander II
-# Coder: Marco Janssen (twitter @marc0janssen)
+# Coder: Marco Janssen (twitter @marc0janssen, mail: marco@mjanssen.nl)
 # year: 2021-04-07
 # version: 1.0
-# notes: Explosion code borrowed with permission from Derek Graham.
+# notes: Explosion code bored with permission from Derek Graham.
 # notes: (https://deejaygraham.github.io/2016/10/28/tiny-asteroids-for-microbit/)
 # notes: All other code is my own.
 
@@ -21,7 +21,7 @@ class Game:
         self.scoreBonus = 1
         self.ticks = 0
         self.rowOfAstroids = 2
-        display.scroll("3... 2... 1... Launch", delay=100)
+        display.scroll("3... 2... 1... Launch...", delay=70)
 
     def gameOver(self):
         spaceship.blowUpShip()
@@ -39,12 +39,38 @@ class Game:
         if self.score % 10 == 0:
             self.frameRate = max(self.frameRate - 100, 400)
             self.scoreBonus += 1
-        elif self.score % 20 == 0:
+
+        if self.score % 15 == 0:
             self.chanceSecondAstroid = max(self.chanceSecondAstroid - 2, 3)
             self.scoreBonus += 3
-        elif self.score % 25 == 0:
-            self.rowOfAstroids = min(self.rowOfAstroids + 1, 8)
+
+        if self.score % 25 == 0:
+            self.rowOfAstroids = min(self.rowOfAstroids + 1, 5)
             self.scoreBonus += 5
+
+    def run(self):
+        while True:
+            astroidField.createAstroid()
+
+            astroidField.drawAstroids()
+            spaceship.draw()
+
+            if spaceship.collide():
+                self.gameOver()
+                break
+
+            sleep(self.frameRate)
+
+            astroidField.hideAstroids()
+            spaceship.hide()
+
+            if button_a.was_pressed():
+                spaceship.moveLeft()
+            elif button_b.was_pressed():
+                spaceship.moveRight()
+
+            astroidField.moveAstroids()
+            astroidField.clearPassedAstroids()
 
 
 class Spaceship:
@@ -140,6 +166,7 @@ class AstroidField:
                 self.astroidField.pop(0)
                 del astroid
                 game.countScore()
+                game.increaseDifficulty()
 
     def hideAstroids(self):
         for astroid in self.astroidField:
@@ -163,26 +190,4 @@ game = Game()
 spaceship = Spaceship()
 astroidField = AstroidField()
 
-while True:
-    astroidField.createAstroid()
-
-    astroidField.drawAstroids()
-    spaceship.draw()
-
-    if spaceship.collide():
-        game.gameOver()
-        break
-
-    sleep(game.frameRate)
-
-    astroidField.hideAstroids()
-    spaceship.hide()
-
-    if button_a.was_pressed():
-        spaceship.moveLeft()
-    elif button_b.was_pressed():
-        spaceship.moveRight()
-
-    astroidField.moveAstroids()
-    astroidField.clearPassedAstroids()
-    game.increaseDifficulty()
+game.run()
