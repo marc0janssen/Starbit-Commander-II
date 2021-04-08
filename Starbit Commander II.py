@@ -2,7 +2,7 @@
 # Coder: Marco Janssen (twitter @marc0janssen, mail: marco@mjanssen.nl)
 # year: 2021-04-07
 # version: 1.0
-# notes: Explosion code bored with permission from Derek Graham.
+# notes: Explosion code borrowed with permission from Derek Graham.
 # notes: (https://deejaygraham.github.io/2016/10/28/tiny-asteroids-for-microbit/)
 # notes: All other code is my own.
 
@@ -21,7 +21,7 @@ class Game:
         self.scoreBonus = 1
         self.ticks = 0
         self.rowOfAstroids = 2
-        display.scroll("3... 2... 1... Launch...", delay=70)
+        
 
     def gameOver(self):
         spaceship.blowUpShip()
@@ -48,7 +48,10 @@ class Game:
             self.rowOfAstroids = min(self.rowOfAstroids + 1, 5)
             self.scoreBonus += 5
 
-    def run(self):
+    def gameStart(self):
+        
+        display.scroll("3... 2... 1... Launch...", delay=70)
+        
         while True:
             astroidField.createAstroid()
 
@@ -190,4 +193,4 @@ game = Game()
 spaceship = Spaceship()
 astroidField = AstroidField()
 
-game.run()
+game.gameStart()
