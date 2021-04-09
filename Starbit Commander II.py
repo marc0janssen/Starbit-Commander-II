@@ -1,5 +1,5 @@
 # Name: Starbit Commander II
-# Coder: Marco Janssen (twitter @marc0janssen, mail: marco@mjanssen.nl)
+# Coder: Marco Janssen (twitter @marc0janssen)
 # year: 2021-04-07
 # version: 1.0
 # notes: Explosion code borrowed with permission from Derek Graham.
