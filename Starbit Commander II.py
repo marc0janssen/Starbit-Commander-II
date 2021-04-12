@@ -3,11 +3,11 @@
 # year: 2021-04-07
 # version: 1.0
 # notes: Explosion code borrowed with permission from Derek Graham.
-# notes: (https://deejaygraham.github.io/2016/10/28/tiny-asteroids-for-microbit/)
+# notes: https://deejaygraham.github.io/2016/10/28/tiny-asteroids-for-microbit/
 # notes: All other code is my own.
 
-from microbit import *
-import random
+from microbit import display, button_a, button_b, sleep
+from random import randint, randrange
 
 
 class Game:
@@ -21,7 +21,6 @@ class Game:
         self.scoreBonus = 1
         self.ticks = 0
         self.rowOfAstroids = 2
-        
 
     def gameOver(self):
         spaceship.blowUpShip()
@@ -49,9 +48,9 @@ class Game:
             self.scoreBonus += 5
 
     def gameStart(self):
-        
+
         display.scroll("3... 2... 1... Launch...", delay=70)
-        
+
         while True:
             astroidField.createAstroid()
 
@@ -88,10 +87,12 @@ class Spaceship:
         self.properties[0] = min(self.properties[0] + 1, game.screenMaxX)
 
     def draw(self):
-        display.set_pixel(self.properties[0], self.properties[1], self.properties[2])
+        display.set_pixel(
+            self.properties[0], self.properties[1], self.properties[2])
 
     def hide(self):
-        display.set_pixel(self.properties[0], self.properties[1], game.brightnessMin)
+        display.set_pixel(
+            self.properties[0], self.properties[1], game.brightnessMin)
 
     def collide(self):
         for astroid in astroidField.astroidField:
@@ -135,16 +136,18 @@ class Spaceship:
 class Astroid:
     def __init__(self):
         self.properties = [0, 0, 0]
-        self.properties[0] = random.randint(game.screenMinX, game.screenMaxX)
-        self.properties[2] = random.randint(
+        self.properties[0] = randint(game.screenMinX, game.screenMaxX)
+        self.properties[2] = randint(
             game.brightnessMin + 1, game.brightnessMax - 3
         )
 
     def draw(self):
-        display.set_pixel(self.properties[0], self.properties[1], self.properties[2])
+        display.set_pixel(
+            self.properties[0], self.properties[1], self.properties[2])
 
     def hide(self):
-        display.set_pixel(self.properties[0], self.properties[1], game.brightnessMin)
+        display.set_pixel(
+            self.properties[0], self.properties[1], game.brightnessMin)
 
     def move(self):
         self.properties[1] = min(self.properties[1] + 1, game.screenMaxY + 1)
@@ -181,7 +184,7 @@ class AstroidField:
             self.astroidField.append(astroid)
             xPosFirstAstroid = astroid.properties[0]
 
-            chance = random.randrange(game.chanceSecondAstroid)
+            chance = randrange(game.chanceSecondAstroid)
             astroid = Astroid()
             if xPosFirstAstroid != astroid.properties[0] and chance == 0:
                 self.astroidField.append(astroid)
