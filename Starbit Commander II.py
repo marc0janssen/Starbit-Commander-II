@@ -1,7 +1,7 @@
 # Name: Starbit Commander II
 # Coder: Marco Janssen (twitter @marc0janssen)
-# year: 2021-04-07
-# version: 1.0
+# stardate: 2021-04-07
+# version: 1.0.4
 # notes: Explosion code borrowed with permission from Derek Graham.
 # notes: https://deejaygraham.github.io/2016/10/28/tiny-asteroids-for-microbit/
 # notes: All other code is my own.
@@ -171,7 +171,6 @@ class AstroidField:
         for astroid in self.astroidField:
             if self.astroidField[0].properties[1] > game.screenMaxY:
                 self.astroidField.pop(0)
-                del astroid
                 game.countScore()
 
     def hideAstroids(self):
@@ -189,6 +188,7 @@ class AstroidField:
             if xPosFirstAstroid != astroid.properties[0] and chance == 0:
                 self.astroidField.append(astroid)
             else:
+                astroid = None
                 del astroid
 
 
@@ -197,3 +197,7 @@ spaceship = Spaceship()
 astroidField = AstroidField()
 
 game.gameStart()
+
+astroidField = None
+spaceship = None
+game = None
