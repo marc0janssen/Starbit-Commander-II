@@ -23,7 +23,7 @@ class Game:
         self.rowOfAstroids = 2
 
     def gameOver(self):
-        spaceship.blowUpShip()
+        spaceShip.blowUpShip()
         sleep(300)
         display.scroll("Game Over")
         sleep(300)
@@ -55,21 +55,21 @@ class Game:
             astroidField.createAstroid()
 
             astroidField.drawAstroids()
-            spaceship.draw()
+            spaceShip.draw()
 
-            if spaceship.collide():
+            if spaceShip.collide():
                 self.gameOver()
                 break
 
             sleep(self.frameRate)
 
             astroidField.hideAstroids()
-            spaceship.hide()
+            spaceShip.hide()
 
             if button_a.was_pressed():
-                spaceship.moveLeft()
+                spaceShip.moveLeft()
             elif button_b.was_pressed():
-                spaceship.moveRight()
+                spaceShip.moveRight()
 
             astroidField.moveAstroids()
             astroidField.clearPassedAstroids()
@@ -193,11 +193,11 @@ class AstroidField:
 
 
 game = Game()
-spaceship = Spaceship()
+spaceShip = Spaceship()
 astroidField = AstroidField()
 
 game.gameStart()
 
 astroidField = None
-spaceship = None
+spaceShip = None
 game = None
